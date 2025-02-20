@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nawasena Devant - Tim Editor Grafis Profesional</title>
+  
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- AOS CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  
+  <style>
+    :root {
+      --primary-color: #0d6efd;
+      --secondary-color: #343a40;
+      --accent-color: #ff6f61;
+      --bg-light: #f8f9fa;
+      --bg-alt: #e9ecef;
+      --bg-portfolio: #dee2e6;
+      --bg-team: #ced4da;
+      --bg-contact: #adb5bd;
+      --hover-bg: rgba(13,110,253,0.15);
+      --transition-speed: 0.3s;
+      --gradient-primary: linear-gradient(135deg, #0d6efd, #00b4d8);
+    }
+    
+    /* Reset & Basic */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      color: var(--secondary-color);
+      background: var(--bg-light);
+      overflow-x: hidden;
+      transition: background var(--transition-speed);
+    }
+    a { text-decoration: none; color: inherit; transition: color var(--transition-speed); }
+    
+    /* Preloader - Multibahasa & Animasi Modern */
+    #preloader {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--bg-light);
+      z-index: 3000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.4s ease;
+    }
+    #preloaderText {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-align: center;
+      margin-bottom: 10px;
+      animation: textPulse 1s ease-in-out infinite alternate;
+    }
+    @keyframes textPulse {
+      0% { transform: rotate(0deg) scale(1); opacity: 0.85; }
+      100% { transform: rotate(5deg) scale(1.1); opacity: 1; }
+    }
+    #preloaderSub {
+      font-size: 1.2rem;
+      color: var(--secondary-color);
+      animation: fadeInOut 2s ease-in-out infinite;
+    }
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+    
+    /* Navbar dengan Glassmorphism & Responsive Hamburger */
+    .navbar {
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1500;
+      padding: 15px 0;
+      transition: background var(--transition-speed), box-shadow var(--transition-speed);
+    }
+    .navbar.scrolled {
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+    .navbar .container {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+    .navbar .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--secondary-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .navbar .logo i { font-size: 1.5rem; }
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    .navbar ul li a {
+      padding: 10px 20px;
+      font-size: 1rem;
+      font-weight: 500;
+      border-radius: 30px;
+      transition: background var(--transition-speed), color var(--transition-speed), transform var(--transition-speed);
+    }
+    .navbar ul li a:hover {
+      background: var(--hover-bg);
+      color: var(--primary-color);
+      transform: scale(1.05);
+    }
+    /* Hamburger menu */
+    .hamburger {
+      display: none;
+      font-size: 1.8rem;
+      color: var(--secondary-color);
+      cursor: pointer;
+    }
+    
+    /* Content Sections */
+    .content { margin-top: 80px; }
+    section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px;
+      text-align: center;
+    }
+    /* Section Backgrounds */
+    #beranda { background: var(--gradient-primary); color: #fff; }
+    #tentang { background: var(--bg-alt); }
+    #portfolio { background: var(--bg-portfolio); }
+    #tim { background: var(--bg-team); }
+    #kontak { background: var(--bg-contact); }
+    section h1, section h2 {
+      margin-bottom: 20px;
+      color: inherit;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    section p {
+      max-width: 600px;
+      margin: auto;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+    
+    /* Portfolio & Tim Grid */
+    .portfolio-grid, .team-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .portfolio-item, .team-member {
+      flex: 1 1 320px;
+      background: #fff;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+      cursor: pointer;
+    }
+    .portfolio-item:hover, .team-member:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    .portfolio-item img, .team-member img {
+      width: 100%;
+      border-radius: 10px;
+      transition: transform var(--transition-speed);
+    }
+    .portfolio-item img:hover, .team-member img:hover {
+      transform: scale(1.03);
+    }
+    .team-member img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      border: 3px solid var(--primary-color);
+    }
+    
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 3000;
+    }
+    .modal.active {
+      display: flex;
+      animation: fadeIn 0.4s ease forwards;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .modal-content {
+      max-width: 90%;
+      max-height: 90%;
+      position: relative;
+    }
+    .modal-content img {
+      width: 100%;
+      border-radius: 15px;
+      transition: transform 0.3s ease;
+    }
+    .modal-content img:hover { transform: scale(1.03); }
+    .modal-close {
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      background: var(--accent-color);
+      color: #fff;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      font-size: 1.3rem;
+      transition: transform var(--transition-speed);
+    }
+    .modal-close:hover { transform: scale(1.15); }
+    
+    /* Footer */
+    footer {
+      background: var(--bg-alt);
+      padding: 20px 0;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--secondary-color);
+      border-top: 1px solid var(--bg-portfolio);
+    }
+    footer .social a {
+      margin: 0 10px;
+      color: var(--secondary-color);
+      transition: color var(--transition-speed);
+    }
+    footer .social a:hover { color: var(--primary-color); }
+    
+    /* Kontak Section Icon */
+    .contact-info {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+      font-size: 1.1rem;
+    }
+    .contact-info a {
+      color: var(--secondary-color);
+      transition: color var(--transition-speed);
+    }
+    .contact-info a:hover { color: var(--primary-color); }
+    .contact-info i { margin-right: 8px; color: var(--primary-color); }
+    
+    /* Responsive Styles */
+    @media (max-width:768px) {
+      .navbar .container { flex-direction: column; text-align: center; }
+      .navbar ul { flex-direction: column; margin-top: 10px; gap: 10px; display: none; width: 100%; }
+      .navbar.active ul { display: flex; }
+      .hamburger { display: block; }
+      section { padding: 60px 10px; }
+      .portfolio-item, .team-member { flex: 1 1 90%; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Preloader -->
+  <div id="preloader">
+    <div id="preloaderText">Selamat Datang</div>
+  </div>
+  
+  <!-- Navbar -->
+  <nav class="navbar" data-aos="fade-down">
+    <div class="container">
+      <div class="logo">
+        <i class="fa-solid fa-pen-nib"></i> Nawasena Devant
+      </div>
+      <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
+      <ul>
+        <li><a href="#beranda"><i class="fa-solid fa-house"></i> Beranda</a></li>
+        <li><a href="#tentang"><i class="fa-solid fa-info-circle"></i> Tentang</a></li>
+        <li><a href="#portfolio"><i class="fa-solid fa-image"></i> Portfolio</a></li>
+        <li><a href="#tim"><i class="fa-solid fa-users"></i> Tim Kami</a></li>
+        <li><a href="#kontak"><i class="fa-solid fa-phone"></i> Kontak</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <!-- Content -->
+  <div class="content">
+    <!-- Beranda Section -->
+    <section id="beranda" data-aos="fade-up">
+      <div>
+        <h1>Selamat Datang di Nawasena Devant</h1>
+        <p>Editor Grafis Profesional – Spesialis logo, banner, dan desain kreatif berkualitas tinggi.</p>
+      </div>
+    </section>
+    <!-- Tentang Kami Section -->
+    <section id="tentang" data-aos="fade-up">
+      <div>
+        <h2>Tentang Kami</h2>
+        <p>Nawasena Devant adalah tim freelancer berpengalaman yang mengutamakan kualitas dan inovasi dalam setiap karya desain. Kami menggabungkan kreativitas dengan teknologi untuk menghasilkan karya visual yang memukau.</p>
+      </div>
+    </section>
+    <!-- Portfolio Section -->
+    <section id="portfolio" data-aos="fade-up">
+      <div>
+        <h2>Portfolio Karya</h2>
+        <p>Lihat beberapa karya terbaik kami yang telah menginspirasi berbagai merek dan perusahaan.</p>
+        <div class="portfolio-grid">
+          <div class="portfolio-item" data-img="assets/image copy 4.png">
+            <img src="assets/image copy 4.png" alt="Desain Logo Modern">
+            <h3>Desain Logo Modern</h3>
+            <p>Logo untuk startup teknologi dengan konsep minimalis dan futuristik.</p>
+          </div>
+          <div class="portfolio-item" data-img="assets/image copy 3.png">
+            <img src="assets/image copy 3.png" alt="Banner Event">
+            <h3>Banner Event</h3>
+            <p>Desain banner untuk acara musik yang energik dan penuh semangat.</p>
+          </div>
+          <div class="portfolio-item" data-img="assets/image copy 5.png">
+            <img src="assets/image copy 5.png" alt="Desain Branding">
+            <h3>Desain Branding</h3>
+            <p>Paket branding lengkap untuk perusahaan retail yang modern dan dinamis.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Tim Kami Section -->
+    <section id="tim" data-aos="fade-up">
+      <div>
+        <h2>Tim Kami</h2>
+        <p>Kami terdiri dari para profesional yang ahli di bidang desain grafis dan siap membantu kebutuhan desain Anda.</p>
+        <div class="team-grid">
+          <div class="team-member" data-aos="fade-up" data-aos-delay="100">
+            <img src="assets/image.png" alt="Ahmad - Spesialis Logo">
+            <h3>Ahmad</h3>
+            <p>Spesialis Logo & Branding</p>
+          </div>
+          <div class="team-member" data-aos="fade-up" data-aos-delay="200">
+            <img src="assets/image copy 2.png" alt="Budi - Desainer Banner">
+            <h3>Budi</h3>
+            <p>Desainer Banner & Media Sosial</p>
+          </div>
+          <div class="team-member" data-aos="fade-up" data-aos-delay="300">
+            <img src="assets/image copy.png" alt="Citra - Editor Kreatif">
+            <h3>Citra</h3>
+            <p>Editor & Retouching</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Kontak Section -->
+    <section id="kontak" data-aos="fade-up">
+      <div>
+        <h2>Hubungi Kami</h2>
+        <p>Untuk informasi lebih lanjut, silakan hubungi kami melalui email atau telepon.</p>
+        <div class="contact-info">
+          <a href="mailto:contact@nawasena-devant.com">
+            <i class="fa-solid fa-envelope"></i> contact@nawasena-devant.com
+          </a>
+          <a href="tel:+628123456789">
+            <i class="fa-solid fa-phone"></i> +62 812 3456 789
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Nawasena Devant. All rights reserved.</p>
+    <div class="social">
+      <a href="#" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+      <a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+    </div>
+  </footer>
+  
+  <!-- Modal untuk Portfolio Image -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <span class="modal-close" id="modalClose"><i class="fa-solid fa-xmark"></i></span>
+      <img src=" alt="Enlarged Image" id="modalImg">
+    </div>
+  </div>
+  
+  <!-- AOS & JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true });
+    
+    // Preloader: tampil 2 detik dengan animasi teks multibahasa
+    const preloader = document.getElementById('preloader');
+    const preloaderText = document.getElementById('preloaderText');
+    const welcomeTexts = ['Selamat Datang','Welcome', 'Sugeng Rawuh','Bienvenido','Bienvenue','Willkommen'];
+    let currentText = 0;
+    const changeText = () => {
+      preloaderText.textContent = welcomeTexts[currentText];
+      currentText = (currentText + 1) % welcomeTexts.length;
+    };
+    const textInterval = setInterval(changeText, 800);
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        clearInterval(textInterval);
+        preloader.style.opacity = '0';
+        setTimeout(() => {
+          preloader.style.display = 'none';
+          document.body.style.overflow = '';
+        }, 400);
+      }, 5000);
+    });
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('.navbar');
+      window.scrollY > 50 ? navbar.classList.add('scrolled') : navbar.classList.remove('scrolled');
+    });
+    
+    // Hamburger menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navUl = document.querySelector('.navbar ul');
+    hamburger.addEventListener('click', () => {
+      document.querySelector('.navbar').classList.toggle('active');
+    });
+    
+    // Modal functionality untuk portfolio image
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalClose = document.getElementById('modalClose');
+    portfolioItems.forEach(item => {
+      item.addEventListener('click', () => {
+        modalImg.src = item.getAttribute('data-img');
+        modal.classList.add('active');
+      });
+    });
+    modalClose.addEventListener('click', () => { modal.classList.remove('active'); });
+    modal.addEventListener('click', (e) => { if(e.target === modal) modal.classList.remove('active'); });
+  </script>
+</body>
+</html>
